@@ -1,0 +1,15 @@
+@import 'infl-styles/dependencies_webpack';
+@import 'infl-styles/alert';
+@import 'infl-styles/form';
+@import 'infl-styles/button';
+
+
+$primary-color: red;
+
+body {
+  font-size: 15px !important;
+}
+
+#header {
+  color: $primary-color;
+}

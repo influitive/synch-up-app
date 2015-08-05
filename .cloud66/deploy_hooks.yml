@@ -1,0 +1,28 @@
+default: &default
+  first_thing:
+    - snippet: cloud66/node
+      target: rails
+      sudo: true
+      execute: true
+      apply_during: build_only
+    - command: npm install -g webpack
+      target: rails
+      sudo: true
+      execute: true
+      apply_during: build_only
+  after_symlink:
+    - source: /.cloud66/assets.sh
+      destination: /tmp/assets.sh
+      target: rails
+      execute: true
+      run_on: all_servers
+      run_as: nginx
+
+qa:
+  <<: *default
+
+staging:
+  <<: *default
+
+production:
+  <<: *default

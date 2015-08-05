@@ -1,0 +1,2 @@
+web: bundle exec rails s Puma -b '127.0.0.1'
+webpack: webpack-dev-server --config webpack.hot.config.js --progress --inline

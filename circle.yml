@@ -1,0 +1,17 @@
+machine:
+  ruby:
+    version: ruby-2.2.2
+  environment:
+    RACK_ENV: test
+    RAILS_ENV: test
+    NODE_ENV: test
+    CIRCLE_ENV: test
+
+dependencies:
+  pre:
+    - npm install --no-spin -g karma-cli webpack
+
+test:
+  override:
+    - karma start --single-run=true
+    - bundle exec rspec

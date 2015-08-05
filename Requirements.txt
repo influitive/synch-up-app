@@ -1,0 +1,40 @@
+Departments:
+  CS
+  Sales
+  Marketing
+  Dev
+
+  PM/Design (twice a month)
+  Finance/Ops (twice a month)
+  B/D (once a month)
+  Executive Office (once a month)''
+
+------------------------
+Initial Requirements:
+
+1) Auto-generate schedule for every month
+2) Allow editing of schedule
+
+-------------------------------------------
+
+1) Find out the order in which it's generated
+2) Allow changing things around
+3) Account for holidays
+
+--------------------------------------------------------------
+
+Week 1 B/D
+       PM/Design
+
+Week 2 Finance/Ops
+
+Week 3 Executive office
+
+Week 4 Finance/Ops
+       PM/Design
+--------------------------------------------
+
+Business rules:
+
+1) Number requirements
+2) Can't have two simultaneous days with same department

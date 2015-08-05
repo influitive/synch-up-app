@@ -1,0 +1,40 @@
+#
+#   For Help
+#
+#   Manifest Docs
+#   http://634-991-907.cloud66.net/building-your-stack/building-your-manifest-file
+#
+#   Instance Names
+#   http://developers.cloud66.com/#introduction-cloud-vendor-instance-names
+#
+#   Instance Regions
+#   http://developers.cloud66.com/#introduction-cloud-vendor-instance-regions
+#
+#
+---
+defaults: &defaults
+  rails: &rails
+    configuration: &rails_config
+      asset_pipeline_precompile: false
+      do_initial_db_schema_load: true
+
+qa:
+  <<: *defaults
+  rails:
+    <<: *rails
+    configuration:
+      <<: *rails_config
+
+staging:
+  <<: *defaults
+  rails:
+    <<: *rails
+    configuration:
+      <<: *rails_config
+
+production:
+  <<: *defaults
+  rails:
+    <<: *rails
+    configuration:
+      <<: *rails_config
