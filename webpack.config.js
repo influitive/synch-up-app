@@ -48,10 +48,11 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /.jsx$/, loader: 'jsx-loader' },
-      { test: /.jsx?$/, exclude: /node_modules/, loader: 'strict' },
-      { test: /.scss$/, loader: "style!css!sass?" + includePaths() },
-      { test: /.(?:ttf|woff2?|eot)$/, loader: 'url-loader?limit=10000' }
+      { test: /\.jsx$/, loader: 'jsx-loader?harmony' },
+      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'strict' },
+      { test: /\.scss$/, loader: "style!css!sass?" + includePaths() },
+      { test: /\.css/, loader: "style!css?" },
+      { test: /\.(?:ttf|woff2?|eot)$/, loader: 'url-loader?limit=10000' }
     ]
   }
 };
