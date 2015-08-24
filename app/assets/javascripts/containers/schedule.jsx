@@ -1,15 +1,21 @@
-var React = require('react'),
-    Router = require('react-router');
+var React  = require('react'),
+    Router = require('react-router'),
+    Reflux = require('reflux');
 
 var Table = require('reactabular').Table;
 var cells = require('reactabular').cells;
 var editors = require('reactabular').editors;
 
+
+var ScheduleStore = require('stores/schedule_store'),
+    Actions = require('actions');
+
 require('./schedule.scss');
 
 var Schedule = React.createClass({
   mixins: [
-    Router.Navigation
+    Router.Navigation,
+    Reflux.connect(ScheduleStore)
   ],
 
   getInitialState: function () {
@@ -26,37 +32,22 @@ var Schedule = React.createClass({
         {
             date: 'Monday, 1st September 2015',
             department: 'Dev',
-            owner: 'Ryan' ,
-            notes: '',
-            estimatedValue: 3
         },
         {
             date: 'Tuesday, 2nd September 2015',
             department: 'Sales',
-            owner: 'Emanuelle',
-            notes: '',
-            estimatedValue: 3
         },
         {
             date: 'Wednesday, 3rd September 2015',
-            department: 'PM/Design',
-            owner: 'Mark R',
-            notes: '',
-            estimatedValue: 3
+            department: 'PM/Design'
         },
         {
             date: 'Thursday, 4th September 2015',
             department: 'CS',
-            owner: 'Chad',
-            notes: '',
-            estimatedValue: 3
         },
         {
             date: 'Friday, 5th September 2015',
             department: 'Marketing',
-            owner: 'Jim',
-            notes: '',
-            estimatedValue: 3
         },
     ];
 
@@ -73,19 +64,6 @@ var Schedule = React.createClass({
                 editor: editors.input(),
             })
           ]
-        },
-        {
-          property: 'owner',
-          header: 'Owner',
-          cell: [
-            editable({
-                editor: editors.input(),
-            })
-          ]
-        },
-        {
-          property: 'notes',
-          header: 'Notes',
         }
     ];
 
@@ -95,7 +73,12 @@ var Schedule = React.createClass({
     };
   },
 
+  componentWillMount: function () {
+      Actions.fetchSchedule(0,0);
+  },
+
   render: function(){
+    console.log(this.state.data);
     return(
         <Table className='pure-table pure-table-striped' columns={this.state.columns} data={this.state.data}/>
       );

@@ -9,7 +9,7 @@ module Api
 
       schedule = DailyScheduleGenerator.new(month, year).generate_schedule
 
-      render json: schedule
+      render json: schedule, root: false
     end
 
   end

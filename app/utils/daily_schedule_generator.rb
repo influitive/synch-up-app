@@ -13,12 +13,12 @@ class DailyScheduleGenerator
 
   def generate_schedule()
     total_days = Time.days_in_month(@month, @year)
-    schedule = Hash[[*1..total_days].collect do |day|
-        [format_day(day), allocate_department(day)]
-      end
-    ]
-
-
+    schedule = [*1..total_days].map do |day|
+                  {
+                     date: format_day(day),
+                     department: allocate_department(day)
+                  }
+               end
   end
 
   def four_time_departments
