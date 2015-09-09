@@ -11,9 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20150909180205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "schedules", force: :cascade do |t|
+    t.integer  "month",                     null: false
+    t.integer  "year",                      null: false
+    t.text     "schedule",   default: "[]"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "schedules", ["month", "year"], name: "index_schedules_on_month_and_year", using: :btree
 
 end

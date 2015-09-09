@@ -25,4 +25,24 @@ RSpec.describe DailyScheduleGenerator do
       expect(department).to_not eq(previous_department)
     end
   end
+
+  it "persists the schedule" do
+    month    = 1
+    year     = 2015
+    subject  = described_class.new(month, year)
+
+    expect {
+      subject.generate_schedule
+    }.to change(Schedule, :count).by(1)
+  end
+
+  it "does not regenerate a schedule if one already exists" do
+    month    = 1
+    year     = 2015
+    subject  = described_class.new(month, year)
+
+    base_schedule = subject.generate_schedule
+
+    expect(subject.generate_schedule).to eq(base_schedule)
+  end
 end

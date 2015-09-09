@@ -7,14 +7,17 @@ class DailyScheduleGenerator
     @four_index             = 0 # index to keep track of departments that should be allocated four times
   end
 
-  def generate_schedule()
-    total_days = Time.days_in_month(@month, @year)
-    schedule = [*1..total_days].map do |day|
-                  {
-                     date: format_day(day),
-                     department: allocate_department(day)
-                  }
-               end
+  def generate_schedule
+    schedule = Schedule.where(month: @month, year: @year).first_or_create do |s|
+      total_days = Time.days_in_month(@month, @year)
+      s.schedule = [*1..total_days].map do |day|
+                      {
+                         date: format_day(day),
+                         department: allocate_department(day)
+                      }
+                   end
+    end
+    schedule.schedule
   end
 
   def four_time_departments
