@@ -5,7 +5,8 @@ var actions = Reflux.createActions([
   "fetchSchedule",
   "setScheduleParams",
   "fetchScheduleParams",
-  "editSchedule"
+  "editSchedule",
+  "updateSchedule"
 ]);
 
 module.exports = actions;

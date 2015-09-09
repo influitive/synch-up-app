@@ -1,8 +1,5 @@
 module Api
   class SchedulesController < ApplicationController
-
-
-    #GET  /schedule/
     def show
       month = params[:month].to_i
       year = params[:year].to_i
@@ -12,6 +9,14 @@ module Api
       render json: schedule, root: false
     end
 
+    def update
+      schedule = Schedule.find_by(month: params[:month].to_i, year: params[:year].to_i )
+      if schedule.present?
+        schedule.update(schedule: JSON.parse(params[:schedule]))
+      end
+
+      render json: {status: "ok"}
+    end
   end
 end
 

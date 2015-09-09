@@ -38,8 +38,15 @@ var ScheduleStore = Reflux.createStore({
   onEditSchedule: function(index, property, value) {
     this.data[index][property] = value;
     this.trigger({data: this.data})
-  }
+  },
 
+  onUpdateSchedule: function() {
+    request
+      .patch('/api/schedule')
+      .query({year: year, month: month, schedule: JSON.stringify(this.data)})
+      .end(function(e, response){
+      });
+  }
 });
 
 module.exports = ScheduleStore;

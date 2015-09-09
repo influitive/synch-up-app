@@ -56,12 +56,17 @@ var Schedule = React.createClass({
     return(
         <div className="schedule">
           <Table className='pure-table pure-table-striped' columns={this.state.columns} data={this.state.data}/>
-          <Button className="submit-btn">
+          <Button className="submit-btn" onClick = {this._handleClick}>
             Submit
           </Button>
         </div>
       );
+  },
+
+  _handleClick: function() {
+    Actions.updateSchedule();
   }
+
 })
 
 module.exports = Schedule;
