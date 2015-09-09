@@ -3,12 +3,8 @@ class DailyScheduleGenerator
     @month                  = month
     @year                   = year
 
-    @two_time_departments   = two_time_departments
     @two_index              = 0 # index to keep track of departments that should be allocated two times
-
-    @four_time_departments  = four_time_departments
     @four_index             = 0 # index to keep track of departments that should be allocated four times
-
   end
 
   def generate_schedule()
@@ -22,11 +18,11 @@ class DailyScheduleGenerator
   end
 
   def four_time_departments
-    ['Dev', 'PM/Design', 'Marketing', 'Sales', 'CS'].shuffle
+    @four_time_departments ||= ['Dev', 'PM/Design', 'Marketing', 'Sales', 'CS'].shuffle
   end
 
   def two_time_departments
-    ['Finance/Ops', 'B/D'].shuffle
+    @two_time_departments ||= ['Finance/Ops', 'B/D'].shuffle
   end
 
   def allocate_department(day)
@@ -35,12 +31,12 @@ class DailyScheduleGenerator
     if date.saturday? || date.sunday?
       return ''
     elsif date.monday?
-      department = @two_time_departments[@two_index % (@two_time_departments.length)]
+      department = two_time_departments[@two_index % (two_time_departments.length)]
       @two_index = @two_index + 1
       return department
     end
 
-    department  = @four_time_departments[@four_index % (@four_time_departments.length)]
+    department  = four_time_departments[@four_index % (four_time_departments.length)]
     @four_index = @four_index + 1
     return department
   end

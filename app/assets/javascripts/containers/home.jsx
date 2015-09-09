@@ -17,20 +17,18 @@ var SubmitDate = React.createClass({
     return(
       <div className="submit_date">
         <SelectDropdown key="key" name="select_month" value={this.props.month} onChange={this._handleDropDownChange}>
-          <optgroup label="Months">
-              <option value="1">January </option>
-              <option value="2">February</option>
-              <option value="3">March</option>
-              <option value="4">April</option>
-              <option value="5">May</option>
-              <option value="6">June</option>
-              <option value="7">July</option>
-              <option value="8">August</option>
-              <option value="9">September</option>
-              <option value="10">October</option>
-              <option value="11">November</option>
-              <option value="12">December</option>
-          </optgroup>
+            <option value="1">January </option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
         </SelectDropdown>
       </div>
     );
@@ -38,6 +36,8 @@ var SubmitDate = React.createClass({
 
   _handleDropDownChange: function(e) {
     Actions.setScheduleParams("month", e.target.value);
+
+    //TODO: Change to dynamically set year
     Actions.setScheduleParams("year", "2015");
   }
 
@@ -49,7 +49,7 @@ var Home = React.createClass({
   getInitialState: function () {
     return {
       schedule: {
-        month: "15",
+        month: "1",
         year:  "2015"
       }
     };

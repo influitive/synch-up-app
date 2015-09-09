@@ -7,7 +7,7 @@ RSpec.describe DailyScheduleGenerator do
     subject  = described_class.new(month, year)
     days     = Time.days_in_month(month, year)
 
-    expect(subject.generate_schedule.keys.count).to eq(days)
+    expect(subject.generate_schedule.count).to eq(days)
   end
 
   it "does not allocate the same department on consecutive days" do
@@ -17,11 +17,12 @@ RSpec.describe DailyScheduleGenerator do
     days     = Time.days_in_month(month, year)
 
     # Ignore weekends
-    schedule = subject.generate_schedule.select {|k, v| v !=  nil }
+    schedule = subject.generate_schedule.select {|item| item[:department] !=  "" }
 
-    schedule.each_with_index do |(day, department), i|
-      expect(department).to_not eq(schedule[schedule.keys[i - 1]])
+    schedule.each_with_index do |item, i|
+      department          = item[:department]
+      previous_department = schedule[i - 1][:department]
+      expect(department).to_not eq(previous_department)
     end
   end
-
 end

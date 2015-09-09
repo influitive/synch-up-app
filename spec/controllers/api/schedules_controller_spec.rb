@@ -1,5 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe SchedulesController, type: :controller do
+module Api
+  RSpec.describe SchedulesController, type: :controller do
 
+  end
 end
