@@ -55,6 +55,10 @@ var Home = React.createClass({
     };
   },
 
+  componentWillMount: function () {
+      Actions.fetchScheduleParams();
+  },
+
   render: function () {
    return (
       <div className="main">

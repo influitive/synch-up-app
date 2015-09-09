@@ -17,6 +17,10 @@ var ScheduleStore = Reflux.createStore({
     this.trigger({schedule: this.schedule})
   },
 
+  onFetchScheduleParams: function (){
+    this.trigger({schedule: this.schedule});
+  },
+
   onFetchSchedule: function() {
     month = this.schedule.month;
     year  = this.schedule.year;
