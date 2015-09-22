@@ -1,15 +1,15 @@
-var React  = require('react'),
-    Router = require('react-router'),
-    Reflux = require('reflux');
+var React = require('react'),
+  Router = require('react-router'),
+  Reflux = require('reflux');
 
-var Table   = require('reactabular').Table;
-var cells   = require('reactabular').cells;
+var Table = require('reactabular').Table;
+var cells = require('reactabular').cells;
 var editors = require('reactabular').editors;
 
-var Button  = require('patternity/infl-components/button.jsx');
+var Button = require('patternity/infl-components/button.jsx');
 
 var ScheduleStore = require('stores/schedule_store'),
-    Actions = require('actions');
+  Actions = require('actions');
 
 require('./schedule.scss');
 
@@ -27,46 +27,59 @@ var Schedule = React.createClass({
 
     var data = [];
     var columns = [
-        {
-          property: 'date',
-          header: 'Date',
-        },
-        {
-          property: 'department',
-          header: 'Department',
-          cell: [
-            editable({
-                editor: editors.input(),
-            })
-          ]
-        }
+      {
+        property: 'date',
+        header: 'Date'
+      },
+      {
+        property: 'department',
+        header: 'Department',
+        cell: [
+          editable({
+            editor: editors.input()
+          })
+        ]
+      }
     ];
 
-    return  {
-        data: data,
-        columns: columns
+    return {
+      data: data,
+      columns: columns,
+      monthName: 'January'
     };
   },
 
   componentWillMount: function () {
-      Actions.fetchSchedule();
+    Actions.fetchSchedule();
   },
 
-  render: function(){
-    return(
-        <div className="schedule">
-          <Table className='pure-table pure-table-striped' columns={this.state.columns} data={this.state.data}/>
-          <Button className="submit-btn" onClick = {this._handleClick}>
-            Submit
-          </Button>
-        </div>
-      );
+  render: function () {
+    return (
+      <div className="schedule">
+        <nav>
+          <a href="#" rel="previous" onClick={this._goToPrevious}>&larr; Previous</a>
+          <span>{this.state.monthName}</span>
+          <a href="#" rel="next" onClick={this._goToNext}>Next &rarr;</a>
+        </nav>
+        <Table className='pure-table' columns={this.state.columns} data={this.state.data}/>
+        <Button className="submit-btn" onClick={this._handleClick}>
+          Submit
+        </Button>
+      </div>
+    );
   },
-
-  _handleClick: function() {
+  _goToPrevious: function (e) {
+    e.preventDefault();
+    Actions.goTo('previous');
+  },
+  _goToNext: function (e) {
+    e.preventDefault();
+    Actions.goTo('next');
+  },
+  _handleClick: function () {
     Actions.updateSchedule();
   }
 
-})
+});
 
 module.exports = Schedule;

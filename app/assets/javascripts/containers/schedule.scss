@@ -1,7 +1,7 @@
 body {
     background: #fefefe;
 
-    font-family: Sans-Serif;
+    font-family: sans-serif;
 
     line-height: 1.5;
 }
@@ -14,7 +14,6 @@ header {
     text-align: center;
 
     color: #333;
-    border: 0.1em solid #bbb;
 
 }
 
@@ -31,6 +30,15 @@ textarea {
 }
 
 table {
+    thead{
+      border-bottom: 0.1em solid #333;
+    }
+
     width: 100%;
+    tr:nth-child(odd){background: #d6eef3
+    }
 }
 
+a[rel=next] {
+  float: right
+}

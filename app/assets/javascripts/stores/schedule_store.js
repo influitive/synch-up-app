@@ -1,5 +1,5 @@
-var Reflux  = require('reflux'),
-    request = require('superagent');
+var Reflux = require('reflux'),
+  request = require('superagent');
 
 var actions = require('actions');
 
@@ -7,8 +7,8 @@ var ScheduleStore = Reflux.createStore({
   listenables: actions,
 
   init: function () {
-    this.schedule = {month: "1", year: "2015"};
-    this.data     = []
+    this.schedule = {month: (new Date()).getMonth() + 1, year: "2015"};
+    this.data = []
   },
 
   onSetScheduleParams: function (paramType, value) {
@@ -17,36 +17,54 @@ var ScheduleStore = Reflux.createStore({
     this.trigger({schedule: this.schedule})
   },
 
-  onFetchScheduleParams: function (){
+  onFetchScheduleParams: function () {
     this.trigger({schedule: this.schedule});
   },
 
-  onFetchSchedule: function() {
+  onFetchSchedule: function () {
     month = this.schedule.month;
-    year  = this.schedule.year;
+    year = this.schedule.year;
 
     request
       .get('/api/schedule')
       .query({year: year, month: month})
       .accept('json')
-      .end(function(e, response){
+      .end(function (e, response) {
         this.data = response.body;
-        this.trigger({data: this.data});
+        this.trigger({data: this.data, monthName: month});
       }.bind(this));
   },
 
-  onEditSchedule: function(index, property, value) {
+  onEditSchedule: function (index, property, value) {
     this.data[index][property] = value;
     this.trigger({data: this.data})
   },
 
-  onUpdateSchedule: function() {
+  onUpdateSchedule: function () {
+    month = this.schedule.month;
+    year = this.schedule.year;
+
     request
       .patch('/api/schedule')
       .query({year: year, month: month, schedule: JSON.stringify(this.data)})
-      .end(function(e, response){
+      .end(function (e, response) {
       });
+  },
+
+  onGoTo: function (direction) {
+    var date = new Date();
+    date.setFullYear(this.schedule.year, this.schedule.month - 1);
+    if (direction == 'previous') {
+      date.setMonth(date.getMonth() - 1);
+    } else {
+      date.setMonth(date.getMonth() + 1);
+    }
+    this.schedule.month = date.getMonth() + 1;
+    this.schedule.year = date.getFullYear();
+
+    this.onFetchSchedule();
   }
+
 });
 
 module.exports = ScheduleStore;
