@@ -49,7 +49,7 @@ var Home = React.createClass({
   getInitialState: function () {
     return {
       schedule: {
-        month: "1",
+        month: "2",
         year:  "2015"
       }
     };

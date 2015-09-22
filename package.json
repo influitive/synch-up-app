@@ -45,6 +45,7 @@
     "mocha": "^2.2.5",
     "phantomjs": "^1.9.17",
     "react-hot-loader": "^1.2.8",
+    "reflux": "^0.2.12",
     "webpack-dev-server": "^1.10.1"
   }
 }
