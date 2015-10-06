@@ -22,8 +22,8 @@ var ScheduleStore = Reflux.createStore({
   },
 
   onFetchSchedule: function () {
-    month = this.schedule.month;
-    year = this.schedule.year;
+    var month = this.schedule.month;
+    var year = this.schedule.year;
 
     request
       .get('/api/schedule')
