@@ -17,11 +17,7 @@ module.exports = {
   // Set 'context' for Rails Asset Pipeline
   context: __dirname + '/app/assets/javascripts',
 
-  entry: {
-    app: [
-      './app.jsx'
-    ]
-  },
+  entry: './app.jsx',
 
   output: {
     filename: '[name]-[chunkhash].js', // Will output app-<the-digest>.js
