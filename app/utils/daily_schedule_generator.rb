@@ -17,7 +17,7 @@ class DailyScheduleGenerator
   private
 
   def schedule_helper
-    schedule = days_in_month.map {|day| {date: format_day(day), department: allocate_department(day)}}
+    schedule = days_in_month.map {|day| {date: format_day(day), department: allocate_department(day), presenter: ''}}
 
     schedule[random_relevant_day - 1][:department] = 'B/D'
     schedule[random_relevant_day - 1][:department] = 'Talent'

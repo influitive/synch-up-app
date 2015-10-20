@@ -39,6 +39,15 @@ var Schedule = React.createClass({
             editor: editors.input()
           })
         ]
+      },
+      {
+        property: 'presenter',
+        header: 'Presenter',
+        cell: [
+          editable({
+            editor: editors.input()
+          })
+        ]
       }
     ];
 

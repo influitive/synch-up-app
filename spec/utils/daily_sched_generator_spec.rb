@@ -56,4 +56,20 @@ RSpec.describe DailyScheduleGenerator do
     expect(schedule.find_all{|item| item[:department] == 'B/D'}.count).to eq(1)
     expect(schedule.find_all{|item| item[:department] == 'Talent'}.count).to eq(1)
   end
+
+  it "should reflect changes made to the presenter on a particular day" do
+    month   = 1
+    year    = 2015
+    subject = described_class.new(month, year)
+
+    schedule = subject.generate_schedule
+    schedule[0][:presenter] = "Bob"
+
+    s = Schedule.find_by(month: month, year: year)
+    s.schedule = schedule
+    s.save
+
+    schedule = subject.generate_schedule
+    expect(schedule[0][:presenter]).to eq("Bob")
+  end
 end
