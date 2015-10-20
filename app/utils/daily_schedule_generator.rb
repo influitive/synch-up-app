@@ -3,40 +3,38 @@ class DailyScheduleGenerator
     @month                  = month
     @year                   = year
 
-    @two_index              = 0 # index to keep track of departments that should be allocated two times
-    @four_index             = 0 # index to keep track of departments that should be allocated four times
+    @four_index             = 0 # index to keep track of departments that should be allocated four timesi
+    @allocated_days         = []
   end
 
   def generate_schedule
     schedule = Schedule.where(month: @month, year: @year).first_or_create do |s|
-      total_days = Time.days_in_month(@month, @year)
-      s.schedule = [*1..total_days].map do |day|
-                      {
-                         date: format_day(day),
-                         department: allocate_department(day)
-                      }
-                   end
+      s.schedule = schedule_helper
     end
     schedule.schedule
+  end
+
+  private
+
+  def schedule_helper
+    schedule = days_in_month.map {|day| {date: format_day(day), department: allocate_department(day)}}
+
+    schedule[random_relevant_day - 1][:department] = 'B/D'
+    schedule[random_relevant_day - 1][:department] = 'Talent'
+    schedule[random_relevant_day - 1][:department] = 'Finance/Ops'
+    schedule[random_relevant_day - 1][:department] = 'Finance/Ops'
+
+    schedule
   end
 
   def four_time_departments
     @four_time_departments ||= ['Dev', 'PM/Design', 'Marketing', 'Sales', 'CS'].shuffle
   end
 
-  def two_time_departments
-    @two_time_departments ||= ['Finance/Ops', 'B/D'].shuffle
-  end
-
   def allocate_department(day)
     date = Date.new(@year, @month, day)
-
     if date.saturday? || date.sunday?
       return ''
-    elsif date.monday?
-      department = two_time_departments[@two_index % (two_time_departments.length)]
-      @two_index = @two_index + 1
-      return department
     end
 
     department  = four_time_departments[@four_index % (four_time_departments.length)]
@@ -47,29 +45,27 @@ class DailyScheduleGenerator
   def format_day(day)
     DateTime.new(@year, @month, day).strftime("%A, %B %d, %Y")
   end
+
+  def days_in_month
+    @days_in_month ||= [*1..Time.days_in_month(@month, @year)]
+  end
+
+  def relevant_days
+    days_in_month.reject do |day|
+      date = Date.new(@year, @month, day)
+      date.saturday? || date.sunday?
+    end
+  end
+
+  def random_relevant_day
+    day = relevant_days.sample
+
+    #Prevent collisions by storing state
+    while @allocated_days.include?(day)
+      day = relevant_days.sample
+    end
+    @allocated_days.push(day)
+
+    day
+  end
 end
-
-__END__
-
-data = {
-  1: 'Dev'
-  2: 'B/D'
-  3:
-  4:
-}
-
-4 times:
-Dev
-PM/Design
-Marketing
-Sales
-CS
-
-2 times:
-Finance /Ops
-B/D
-
-
-1 time:
-Executive Office
-Talent

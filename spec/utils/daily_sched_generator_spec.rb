@@ -45,4 +45,15 @@ RSpec.describe DailyScheduleGenerator do
 
     expect(subject.generate_schedule).to eq(base_schedule)
   end
+
+  it "ensures that BD and talent go only once a month each " do
+    month   = 1
+    year    = 2015
+    subject = described_class.new(month, year)
+
+    schedule = subject.generate_schedule
+
+    expect(schedule.find_all{|item| item[:department] == 'B/D'}.count).to eq(1)
+    expect(schedule.find_all{|item| item[:department] == 'Talent'}.count).to eq(1)
+  end
 end
