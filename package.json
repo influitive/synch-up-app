@@ -18,7 +18,7 @@
     "material-ui": "^0.10.1",
     "node-libs-browser": "^0.5.2",
     "node-sass": "^3.2.0",
-    "patternity": "git://github.com/influitive/patternity",
+    "patternity": "1.0.67",
     "phantomjs-polyfill": "0.0.1",
     "react": "^0.13.3",
     "react-datatable": "0.0.31",
