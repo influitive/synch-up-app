@@ -66,7 +66,7 @@ var Schedule = React.createClass({
     var rows = React.findDOMNode(this.refs.table).querySelectorAll('tbody tr');
 
     for (var i = 0; i < rows.length; i++) {
-      day = rows[i].textContent.split(',')[0];
+      var day = rows[i].textContent.split(',')[0];
       rows[i].className = day.toLowerCase();
     }
   },
