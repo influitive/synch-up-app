@@ -62,6 +62,15 @@ var Schedule = React.createClass({
     Actions.fetchSchedule();
   },
 
+  componentDidUpdate: function () {
+    var rows = React.findDOMNode(this.refs.table).querySelectorAll('tbody tr');
+
+    for (var i = 0; i < rows.length; i++) {
+      day = rows[i].textContent.split(',')[0];
+      rows[i].className = day.toLowerCase();
+    }
+  },
+
   render: function () {
     return (
       <div className="schedule">
@@ -70,7 +79,7 @@ var Schedule = React.createClass({
           <span>{this.state.monthName}</span>
           <a href="#" rel="next" onClick={this._goToNext}>Next &rarr;</a>
         </nav>
-        <Table className='pure-table' columns={this.state.columns} data={this.state.data}/>
+        <Table ref="table" className='pure-table' columns={this.state.columns} data={this.state.data}/>
         <Button className="submit-btn" onClick={this._handleClick}>
           Submit
         </Button>

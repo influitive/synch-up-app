@@ -39,6 +39,26 @@ table {
     }
 }
 
+tr.friday {
+  border-bottom: 2px solid #ccc;
+}
+
 a[rel=next] {
-  float: right
+  float: right;
+}
+a[rel=previous] {
+  float: left;
+}
+
+nav {
+  text-align: center;
+  a { padding: 0.25em; display: inline-block; }
+  span {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+}
+
+.button {
+  margin-top: 12px;
 }

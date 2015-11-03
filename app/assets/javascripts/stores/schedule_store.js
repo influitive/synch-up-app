@@ -3,6 +3,9 @@ var Reflux = require('reflux'),
 
 var actions = require('actions');
 
+var MONTHS = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"];
+
 var ScheduleStore = Reflux.createStore({
   listenables: actions,
 
@@ -13,7 +16,7 @@ var ScheduleStore = Reflux.createStore({
 
   onSetScheduleParams: function (paramType, value) {
     //paramType can be either month or year
-    this.schedule[paramType] = value
+    this.schedule[paramType] = value;
     this.trigger({schedule: this.schedule})
   },
 
@@ -31,7 +34,7 @@ var ScheduleStore = Reflux.createStore({
       .accept('json')
       .end(function (e, response) {
         this.data = response.body;
-        this.trigger({data: this.data, monthName: month});
+        this.trigger({data: this.data, monthName: MONTHS[month - 1]});
       }.bind(this));
   },
 
