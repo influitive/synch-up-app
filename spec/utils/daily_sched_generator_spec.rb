@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe DailyScheduleGenerator do
-  it "returns a schedule for every day of given month" do
+  it "returns a schedule for every week day of given month" do
     month    = 1
     year     = 2015
     subject  = described_class.new(month, year)
-    days     = Time.days_in_month(month, year)
+    days     = 22
 
     expect(subject.generate_schedule.count).to eq(days)
   end
@@ -17,7 +17,7 @@ RSpec.describe DailyScheduleGenerator do
     days     = Time.days_in_month(month, year)
 
     # Ignore weekends
-    schedule = subject.generate_schedule.select {|item| item[:department] !=  "" }
+    schedule = subject.generate_schedule
 
     schedule.each_with_index do |item, i|
       department          = item[:department]
@@ -53,8 +53,8 @@ RSpec.describe DailyScheduleGenerator do
 
     schedule = subject.generate_schedule
 
-    expect(schedule.find_all{|item| item[:department] == 'B/D'}.count).to eq(1)
-    expect(schedule.find_all{|item| item[:department] == 'Talent'}.count).to eq(1)
+    expect(schedule.find_all{|item| item[:department] == 'B/D or Executive'}.count).to eq(1)
+    expect(schedule.find_all{|item| item[:department] == 'Talent or Education'}.count).to eq(1)
   end
 
   it "should reflect changes made to the presenter on a particular day" do

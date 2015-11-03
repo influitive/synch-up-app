@@ -17,18 +17,20 @@ class DailyScheduleGenerator
   private
 
   def schedule_helper
-    schedule = days_in_month.map {|day| {date: format_day(day), department: allocate_department(day), presenter: ''}}
+    schedule = relevant_days.map {|day| {date: format_day(day), department: allocate_department(day), presenter: ''}}
 
-    schedule[random_relevant_day - 1][:department] = 'B/D'
-    schedule[random_relevant_day - 1][:department] = 'Talent'
+    schedule[random_relevant_day - 1][:department] = 'B/D or Executive'
+    schedule[random_relevant_day - 1][:department] = 'Talent or Education'
     schedule[random_relevant_day - 1][:department] = 'Finance/Ops'
     schedule[random_relevant_day - 1][:department] = 'Finance/Ops'
+    schedule[random_relevant_day - 1][:department] = 'PM/Design'
+    schedule[random_relevant_day - 1][:department] = 'PM/Design'
 
     schedule
   end
 
   def four_time_departments
-    @four_time_departments ||= ['Dev', 'PM/Design', 'Marketing', 'Sales', 'CS'].shuffle
+    @four_time_departments ||= ['Dev', 'Marketing', 'Sales', 'CS'].shuffle
   end
 
   def allocate_department(day)
@@ -58,13 +60,13 @@ class DailyScheduleGenerator
   end
 
   def random_relevant_day
-    day = relevant_days.sample
+    day = rand(relevant_days.size)
 
     #Prevent collisions by storing state
     while @allocated_days.include?(day)
-      day = relevant_days.sample
+      day = rand(relevant_days.size)
     end
-    @allocated_days.push(day)
+    @allocated_days.concat([day, day + 1, day - 1])
 
     day
   end
