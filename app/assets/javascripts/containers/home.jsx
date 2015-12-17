@@ -33,7 +33,7 @@ var SubmitDate = React.createClass({
     Actions.setScheduleParams("month", e.target.value);
 
     //TODO: Change to dynamically set year
-    Actions.setScheduleParams("year", "2015");
+    Actions.setScheduleParams("year", "2016");
   }
 
 });
@@ -46,8 +46,8 @@ var Home = React.createClass({
       monthNames:  ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
         'September', 'October', 'November', 'December'],
       schedule: {
-        month: "2",
-        year:  "2015"
+        month: "1",
+        year:  "2016"
       }
     };
   },
