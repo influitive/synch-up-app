@@ -9,7 +9,7 @@ var editors = require('reactabular').editors;
 var Button = require('patternity/infl-components/button.jsx');
 
 var ScheduleStore = require('stores/schedule_store'),
-  Actions = require('actions');
+    Actions = require('actions');
 
 require('./schedule.scss');
 
@@ -48,7 +48,25 @@ var Schedule = React.createClass({
             editor: editors.input()
           })
         ]
-      }
+      },
+      {
+        property: 'email',
+        header: 'Email',
+        cell: [
+          editable({
+            editor: editors.input()
+          })
+        ]
+      },
+      {
+        property: 'topic',
+        header: 'Topic',
+        cell: [
+          editable({
+            editor: editors.input()
+          })
+        ]
+      },
     ];
 
     return {

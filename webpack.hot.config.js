@@ -57,7 +57,7 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.jsx?$/, loaders: ['react-hot', 'jsx-loader']},
+      { test: /\.jsx?$/, loaders: ['babel-loader'], exclude: '/node_modules/'},
       { test: /\.scss$/, loader: "style!css!sass?" + includePaths() },
       { test: /\.css/, loader: "style!css?" },
       { test: /\.(?:ttf|woff2?|eot)$/, loader: 'url-loader?limit=10000' }

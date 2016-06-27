@@ -17,12 +17,13 @@ class DailyScheduleGenerator
   private
 
   def schedule_helper
-    schedule = relevant_days.map {|day| {date: format_day(day), department: allocate_department(day), presenter: ''}}
+    schedule = relevant_days.map {|day| {date: format_day(day), department: allocate_department(day), presenter: '', email: '', topic: ''}}
 
     schedule[random_relevant_day - 1][:department] = 'B/D or Executive'
     schedule[random_relevant_day - 1][:department] = 'Talent or Education'
     schedule[random_relevant_day - 1][:department] = 'Finance/Ops'
     schedule[random_relevant_day - 1][:department] = 'Finance/Ops'
+    schedule[random_relevant_day - 1][:department] = 'PM/Design'
     schedule[random_relevant_day - 1][:department] = 'PM/Design'
     schedule[random_relevant_day - 1][:department] = 'PM/Design'
 
